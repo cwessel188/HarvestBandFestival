@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HarvestBandFestival.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,9 @@ namespace HarvestBandFestival
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // code for automapper initialization
+            AutoMapperStartup.RegisterMaps();
         }
     }
 }

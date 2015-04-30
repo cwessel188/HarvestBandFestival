@@ -7,7 +7,7 @@ public class Class1
         /**
          * TODO DEPENDENCY INJECTIONS
          * add the services folder back in 
-         * create some of :
+         * create some of:
          *              BandService, IBandService, GenericRepository, IGenericRepository, etc
          *              
          *      Infrastucture: GenRepo, IGenRepo
@@ -30,6 +30,19 @@ public class Class1
          *  - changed the DBInitializer to DropCreateIfNewer
          *   - signinmanager is null. signinmanager should be called from GetOwinContext
          * 
+         * 
+         * TODO add Generic repo
+         * fro DRY reasons to save from creating multiple repos
+         * 
+         * Domain v Services
+         * both have models
+         * domain models are the real rep of objects in domain
+         * then you have DTOs that represent views on domain models
+         * 
+         * 
+         * 
+         *  DELETE SCRIPTS import from bootstrap?
+         * except jqueryvalidateunobstrusive
          * 
          * */
 	}

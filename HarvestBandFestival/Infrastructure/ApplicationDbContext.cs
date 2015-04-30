@@ -13,13 +13,16 @@ namespace HarvestBandFestival.Infrastructure
             : base("DefaultConnection", throwIfV1Schema: false)
         {
             // Call DB Initializer here
-            Database.SetInitializer(new DatabaseInitializer());
-
+          Database.SetInitializer(new DatabaseInitializer());
         }
 
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
         }
+
+        public IDbSet<Band> Bands { get; set; }
+
+    //    public System.Data.Entity.DbSet<HarvestBandFestival.Models.ApplicationUser> ApplicationUsers { get; set; }
     }
 }

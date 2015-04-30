@@ -8,7 +8,7 @@ using System.Web;
 namespace HarvestBandFestival.Models
 {
     /// <summary>
-    /// A Band class that contains every property a ban could ever want.
+    /// A Band class that contains every property a band could ever want.
     /// </summary>
     public class Band
     {

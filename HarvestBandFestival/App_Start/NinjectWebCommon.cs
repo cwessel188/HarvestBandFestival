@@ -45,6 +45,9 @@ namespace HarvestBandFestival.App_Start
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
+                // pulled from Coder Camps on Dependency Injection
+                kernel.Bind<IGenericRepository>().To<GenericRepository>();
+
                 RegisterServices(kernel);
                 return kernel;
             }
