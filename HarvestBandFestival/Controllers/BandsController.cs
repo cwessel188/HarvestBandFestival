@@ -8,7 +8,6 @@ using System.Web;
 using System.Web.Mvc;
 using HarvestBandFestival.Infrastructure;
 using HarvestBandFestival.Models;
-using HarvestBandFestival.Services;
 
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
@@ -59,7 +58,7 @@ namespace HarvestBandFestival.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Id,School,Disctrict,Division,DirectorFirstName,DirectorLastName,PhoneNumber,Email,BandSize,BandNickName,StreetAddress,City,State,ZipCode,PaidStatus,DatePaid,ImageSource")] Band band)
+        public ActionResult Create([Bind(Include = "School,Disctrict,Division,BandSize,BandNickName,PaidStatus,DatePaid,ImageSource")] Band band)
         {
             if (ModelState.IsValid)
             {
@@ -79,6 +78,10 @@ namespace HarvestBandFestival.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Band band = _repo.Find<Band>(id);
+
+            // create a list of users to pass to the view
+            var userList = _repo.Query<ApplicationUser>().ToList();
+
             if (band == null)
             {
                 return HttpNotFound();
@@ -91,7 +94,7 @@ namespace HarvestBandFestival.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "School,Disctrict,Division,DirectorFirstName,DirectorLastName,PhoneNumber,Email,BandSize,BandNickName,StreetAddress,City,State,ZipCode,ImageSource")] Band band)
+        public ActionResult Edit([Bind(Include = "Id,School,Disctrict,Division,BandSize,BandNickName,ImageSource")] Band band)
         {
             if (ModelState.IsValid)
             {
@@ -100,16 +103,8 @@ namespace HarvestBandFestival.Controllers
                 original.School = band.School;
                 original.Disctrict = band.Disctrict;
                 original.Division = band.Division;
-                original.DirectorFirstName = band.DirectorFirstName;
-                original.DirectorLastName = band.DirectorLastName;
-                original.PhoneNumber = band.PhoneNumber;
-                original.Email = band.Email;
                 original.BandSize = band.BandSize;
                 original.BandNickName = band.BandNickName;
-                original.StreetAddress = band.StreetAddress;
-                original.City = band.City;
-                original.State = band.State;
-                original.ZipCode = band.ZipCode;
                 // removed paidstatus and DatePaid
                 original.ImageSource = band.ImageSource;
 

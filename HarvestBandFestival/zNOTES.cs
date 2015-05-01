@@ -1,8 +1,8 @@
 ﻿using System;
 
-public class Class1
+public class zNOTES
 {
-	public Class1()
+	public zNOTES()
 	{
         /**
          * TODO DEPENDENCY INJECTIONS
@@ -20,7 +20,8 @@ public class Class1
          * an admin only area with access to every account and the front end of the site
          * 
          * TODO CRUD for USERS
-         * TODO CRUD for BANDS
+         * 
+         * TODO create a custom Razor helper for to edit Primarycontact
          * 
          * defaults for user name and pw validation are in the IdentityConfig folder, by default in the App_Start Folder
          *  Contains the following classes: SignInManager, ApplicationUserManager, EmailService, SmsService
@@ -30,9 +31,6 @@ public class Class1
          *  - changed the DBInitializer to DropCreateIfNewer
          *   - signinmanager is null. signinmanager should be called from GetOwinContext
          * 
-         * 
-         * TODO add Generic repo
-         * fro DRY reasons to save from creating multiple repos
          * 
          * Domain v Services
          * both have models
@@ -47,9 +45,12 @@ public class Class1
          * 
          * 
          * 
-         * found this article on blocking
-         * http://blog.stephencleary.com/2012/07/dont-block-on-async-code.html
-         * added a bunch of ConfigureAwait(false) tags because of it. may have broken project
+         * 
+         * NEAT THINGS TO SHOW OFF
+         * RouteConfig redirects edit to the first band.
+         * enums and IdentityModel are split into their own classes
+         * 
+         * 
          * */
     }
 }

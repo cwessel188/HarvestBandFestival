@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using System.ComponentModel.DataAnnotations;
 
 namespace HarvestBandFestival.Models
 {
@@ -12,14 +13,26 @@ namespace HarvestBandFestival.Models
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
-            //TODO added ConfigureAwait ConfigureAwait(false)
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
             // Add custom user claims here
             
-
+            // TODO add claims for scoreEntry, EditBand, ViewBands, ContestStaff
 
             return userIdentity;
         }
+
+         // Inherited properties used in this project:
+         //   string Email
+         //   string PhoneNumber
+
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string StreetAddress { get; set; }
+        public string City { get; set; }
+        [MaxLength(2, ErrorMessage="Please enter two characters i.e.'WA'")]
+        public string State { get; set; }
+        public int? Zipcode { get; set; }
+
     }
 
 
