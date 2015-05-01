@@ -44,6 +44,12 @@ public class Class1
          *  DELETE SCRIPTS import from bootstrap?
          * except jqueryvalidateunobstrusive
          * 
+         * 
+         * 
+         * 
+         * found this article on blocking
+         * http://blog.stephencleary.com/2012/07/dont-block-on-async-code.html
+         * added a bunch of ConfigureAwait(false) tags because of it. may have broken project
          * */
-	}
+    }
 }

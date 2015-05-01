@@ -12,6 +12,7 @@ using HarvestBandFestival.Services;
 
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using System.Threading.Tasks;
 
 namespace HarvestBandFestival.Controllers
 {
@@ -28,8 +29,8 @@ namespace HarvestBandFestival.Controllers
         // GET: Bands
         public ActionResult Index()
         {
-            var bandIndexDTOs = _repo.Query<Band>().Project().To<BandIndexDTO>();
-            return View(bandIndexDTOs.ToList());
+            var bands = _repo.Query<Band>();
+            return View(bands.ToList());
         }
 
         // GET: Bands/Details/5

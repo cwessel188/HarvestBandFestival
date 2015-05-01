@@ -4,13 +4,22 @@ using System.ComponentModel.DataAnnotations;
 using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
+
+
+using System.Globalization;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
+using HarvestBandFestival.Models;
 
 namespace HarvestBandFestival.Infrastructure
 {
     public class GenericRepository : IGenericRepository
     {
-        private ApplicationDbContext _dc = new ApplicationDbContext();
-
+        private ApplicationDbContext _dc = HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>();
         /// <summary>
         /// Generic Query method
         /// </summary>

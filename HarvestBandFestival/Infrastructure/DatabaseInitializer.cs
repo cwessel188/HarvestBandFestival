@@ -22,7 +22,8 @@ namespace HarvestBandFestival.Infrastructure
 
             // add Overlord to Db
             // TODO? code stops executing at this point
-            var overlord = userManager.FindByName("wesselcp@plu.edu");
+            var overlord = userManager.FindByEmail("wesselcp@plu.edu");
+            //ApplicationUser overlord = null;
             if (overlord == null)
             {
                 overlord = new ApplicationUser // TODO should eventually be admin(?)

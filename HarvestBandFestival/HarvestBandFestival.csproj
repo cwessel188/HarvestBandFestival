@@ -181,7 +181,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\BandsController.cs" />
-    <Compile Include="Domain\Band.cs" />
+    <Compile Include="Models\Band.cs" />
     <Compile Include="Infrastructure\GenericRepository.cs" />
     <Compile Include="Infrastructure\IGenericRepository.cs" />
     <Compile Include="Models\BandIndexDTO.cs" />
@@ -244,6 +244,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Domain\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
