@@ -13,6 +13,9 @@ namespace HarvestBandFestival
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // for added MVC attribute routing
+            routes.MapMvcAttributeRoutes();
+
             // Edit redirect to first band in IDbSet
             routes.MapRoute(
                 name: "EditRedirect",

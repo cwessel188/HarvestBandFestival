@@ -19,17 +19,23 @@ public class zNOTES
          * TODO ADMIN AREA
          * an admin only area with access to every account and the front end of the site
          * 
-         * TODO CRUD for USERS
+         * TODO Claims
          * 
-         * TODO create a custom Razor helper for to edit Primarycontact
+         * TODO create a custom Razor helper for to edit Primarycontact. add to neat things.
          * 
          * defaults for user name and pw validation are in the IdentityConfig folder, by default in the App_Start Folder
          *  Contains the following classes: SignInManager, ApplicationUserManager, EmailService, SmsService
          * 
-         * TODOBug
+         * Bug
          * when logging in, program appears to lag out, then attempts to dropCreate the database.
          *  - changed the DBInitializer to DropCreateIfNewer
          *   - signinmanager is null. signinmanager should be called from GetOwinContext
+         * FIXED: just log out and in again.
+         * 
+         * TODOSTEPHEN - 
+         * was able to reproduct bug: log in, close, restart, attept to open bands/index
+         * 
+         * 
          * 
          * 
          * Domain v Services
@@ -39,7 +45,7 @@ public class zNOTES
          * 
          * 
          * 
-         *  DELETE SCRIPTS import from bootstrap?
+         * TODO DELETE SCRIPTS import from bootstrap?
          * except jqueryvalidateunobstrusive
          * 
          * 
@@ -47,9 +53,9 @@ public class zNOTES
          * 
          * 
          * NEAT THINGS TO SHOW OFF
-         * RouteConfig redirects edit to the first band.
-         * enums and IdentityModel are split into their own classes
-         * 
+         * - RouteConfig redirects edit to the first band.
+         * - enums and IdentityModel are split into their own classes
+         * - used built in Users property of the ApplicationDbContext to create users view
          * 
          * */
     }

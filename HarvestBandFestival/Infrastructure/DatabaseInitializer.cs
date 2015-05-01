@@ -20,11 +20,15 @@ namespace HarvestBandFestival.Infrastructure
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
 
             // add Overlord to Db
-            var overlord = new ApplicationUser
+            var overlord = userManager.FindByName("wesselcp@plu.edu");
+            if (overlord == null)
             {
-                UserName = "wesselcp@plu.edu",
-                Email = "wesselcp@plu.edu",
-            };
+                overlord = new ApplicationUser
+                {
+                    UserName = "wesselcp@plu.edu",
+                    Email = "wesselcp@plu.edu",
+                };
+            }
             userManager.Create(overlord, "password");
 
             // add claims

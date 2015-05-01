@@ -25,8 +25,12 @@ namespace HarvestBandFestival.Models
          //   string Email
          //   string PhoneNumber
 
+        [Display(Name="First Name")]
         public string FirstName { get; set; }
+        [Display(Name="Last Name")]
         public string LastName { get; set; }
+
+        [Display(Name = "Street Address")]
         public string StreetAddress { get; set; }
         public string City { get; set; }
         [MaxLength(2, ErrorMessage="Please enter two characters i.e.'WA'")]

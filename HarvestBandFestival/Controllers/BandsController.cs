@@ -98,7 +98,7 @@ namespace HarvestBandFestival.Controllers
         {
             if (ModelState.IsValid)
             {
-                //TODO bandsControllerEdit using AutoMapper
+                // don't use autoMapper for fear of overposting
                 var original = _repo.Find<Band>(band.Id);
                 original.School = band.School;
                 original.Disctrict = band.Disctrict;

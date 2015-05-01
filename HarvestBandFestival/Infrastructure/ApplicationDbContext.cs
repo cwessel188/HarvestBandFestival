@@ -37,6 +37,7 @@ namespace HarvestBandFestival.Infrastructure
         }
         public IDbSet<Band> Bands { get; set; }
 
-        //    public System.Data.Entity.DbSet<HarvestBandFestival.Models.ApplicationUser> ApplicationUsers { get; set; }
+
+
     }
 }
