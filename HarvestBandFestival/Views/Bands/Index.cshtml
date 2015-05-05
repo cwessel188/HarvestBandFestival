@@ -1,0 +1,65 @@
+﻿@model IEnumerable<HarvestBandFestival.Models.Band>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.School)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Disctrict)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Division)
+            </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BandSize)
+        </th>
+        <!--Hiding Nickname-->
+        <th>
+            @Html.DisplayNameFor(model => model.PaidStatus)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatePaid)
+        </th>
+        <!--Hiding ImageSource-->
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.School)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Disctrict)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Division)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BandSize)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PaidStatus)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatePaid)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

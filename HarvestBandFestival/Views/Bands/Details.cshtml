@@ -1,0 +1,89 @@
+﻿@model HarvestBandFestival.Models.Band
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Band</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.School)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.School)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Disctrict)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Disctrict)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Division)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Division)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BandSize)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BandSize)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BandNickName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BandNickName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PaidStatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PaidStatus)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatePaid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatePaid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImageSource)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImageSource)
+        </dd>
+        <!--Added display for primary contact email-->
+        <dt>
+            @Html.DisplayNameFor(model => model.PrimaryContact.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PrimaryContact.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
