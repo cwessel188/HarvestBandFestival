@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -50,7 +51,10 @@ namespace HarvestBandFestival.Models
         public DateTime? DatePaid { get; set; }
 
         public string ImageSource { get; set; } // TODO image implementation 
+
+        public string PrimaryContactId { get; set; }
         [Display(Name="Primary Contact Information")]
+        [ForeignKey("PrimaryContactId")]
         public ApplicationUser PrimaryContact { get; set; }
 
 

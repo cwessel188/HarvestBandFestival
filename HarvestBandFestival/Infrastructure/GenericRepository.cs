@@ -14,6 +14,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using HarvestBandFestival.Models;
+using System.Linq.Expressions;
 
 namespace HarvestBandFestival.Infrastructure
 {
@@ -94,7 +95,20 @@ namespace HarvestBandFestival.Infrastructure
             _dc.Dispose();
         }
 
-
-
     }
+    /// <summary>
+    /// This class promotes the Include() method from the entity framework so it
+    /// can be used at a higher layer. You might not want to reference in the Entity Framework
+    /// in your presentation layer.
+    /// </summary>
+    public static class GenericRepositoryExtensions
+    {
+        public static IQueryable<T> Include<T, TProperty>(this IQueryable<T> queryable, Expression<Func<T, TProperty>> relatedEntity) where T : class
+        {
+            return System.Data.Entity.QueryableExtensions.Include<T, TProperty>(queryable, relatedEntity);
+        }
+    }
+
+
+
 }

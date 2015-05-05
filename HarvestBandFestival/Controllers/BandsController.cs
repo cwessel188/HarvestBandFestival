@@ -12,6 +12,7 @@ using HarvestBandFestival.Models;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using System.Threading.Tasks;
+using HarvestBandFestival.Views.BandDirectors;
 
 namespace HarvestBandFestival.Controllers
 {
@@ -40,6 +41,10 @@ namespace HarvestBandFestival.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Band band = _repo.Find<Band>(id);
+
+            // this is ghetto
+            band.PrimaryContact = _repo.Find<ApplicationUser>(band.PrimaryContactId);
+
             if (band == null)
             {
                 return HttpNotFound();
@@ -77,16 +82,23 @@ namespace HarvestBandFestival.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            BandsViewModelWithUsers vm = new BandsViewModelWithUsers();
             Band band = _repo.Find<Band>(id);
 
             // create a list of users to pass to the view
             var userList = _repo.Query<ApplicationUser>().ToList();
 
+            SelectList s = new SelectList(userList, "Id", "LastName");
+
+            vm.Band = band;
+            vm.AppUsers = s;
+
             if (band == null)
             {
                 return HttpNotFound();
             }
-            return View(band);
+            return View(vm);
         }
 
         // POST: Bands/Edit/5
@@ -94,10 +106,13 @@ namespace HarvestBandFestival.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,School,Disctrict,Division,BandSize,BandNickName,ImageSource")] Band band)
+        // [Bind(Include = "Id,School,Disctrict,Division,BandSize,BandNickName,ImageSource, PrimaryContant")] 
+        public ActionResult Edit(BandsViewModelWithUsers vm)
         {
             if (ModelState.IsValid)
             {
+                var band = vm.Band;
+
                 // don't use autoMapper for fear of overposting
                 var original = _repo.Find<Band>(band.Id);
                 original.School = band.School;
@@ -107,11 +122,12 @@ namespace HarvestBandFestival.Controllers
                 original.BandNickName = band.BandNickName;
                 // removed paidstatus and DatePaid
                 original.ImageSource = band.ImageSource;
+                original.PrimaryContact = band.PrimaryContact;
 
                 _repo.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(band);
+            return View(vm);
         }
 
         // GET: Bands/Delete/5

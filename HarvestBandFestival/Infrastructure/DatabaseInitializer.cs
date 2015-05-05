@@ -9,26 +9,27 @@ using System.Web;
 
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
+using System.Diagnostics;
 
 namespace HarvestBandFestival.Infrastructure
 {
-    public class DatabaseInitializer : DropCreateDatabaseAlways<ApplicationDbContext>
+    public class DatabaseInitializer : DropCreateDatabaseIfModelChanges<ApplicationDbContext>
     {
 
         protected override void Seed(ApplicationDbContext context)
         {
-            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            // writes to output window
+            Trace.WriteLine("Database Initialization Started");
 
+            var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            
             // add Overlord to Db
-            var overlord = userManager.FindByName("wesselcp@plu.edu");
-            if (overlord == null)
-            {
-                overlord = new ApplicationUser
+            var overlord = new ApplicationUser
                 {
                     UserName = "wesselcp@plu.edu",
                     Email = "wesselcp@plu.edu",
                 };
-            }
+
             userManager.Create(overlord, "password");
 
             // add claims
@@ -47,41 +48,41 @@ namespace HarvestBandFestival.Infrastructure
 
             var scottyG = new ApplicationUser
             {
-                FirstName="Scotty",
-                LastName="G",
-                PhoneNumber="509.123.4321",
-                Email="scottygandthepirates@yakimaschools.org",
-                UserName ="scottygandthepirates@yakimaschools.org"
+                FirstName = "Scotty",
+                LastName = "G",
+                PhoneNumber = "509.123.4321",
+                Email = "scottygandthepirates@yakimaschools.org",
+                UserName = "scottygandthepirates@yakimaschools.org"
             };
             userManager.Create(scottyG, "password");
 
             var wally = new ApplicationUser
             {
-                FirstName="Wally",
-                LastName="Walters",
-                PhoneNumber="509.456.7654",
-                Email="wally@yakimaschools.com",
-                UserName ="wally@yakimaschools.com"
+                FirstName = "Wally",
+                LastName = "Walters",
+                PhoneNumber = "509.456.7654",
+                Email = "wally@yakimaschools.com",
+                UserName = "wally@yakimaschools.com"
             };
             userManager.Create(wally, "password");
 
             var legituser = new ApplicationUser
             {
-                FirstName="Dillon",
-                LastName="Miller",
-                PhoneNumber="509-222-7100",
-                Email="dillon.miller@ksd.org",
+                FirstName = "Dillon",
+                LastName = "Miller",
+                PhoneNumber = "509-222-7100",
+                Email = "dillon.miller@ksd.org",
                 UserName = "dillon.miller@ksd.org",
-                StreetAddress="500 S. Dayton St.",
-                City="Kennewick",
-                State="WA",
-                Zipcode=98336
+                StreetAddress = "500 S. Dayton St.",
+                City = "Kennewick",
+                Territory = "WA",
+                Zipcode = 98336
             };
             userManager.Create(legituser, "password");
 
 
 
-            // add some bands to test with
+            // ================================  add some bands to test with  =================================
             var bands = new List<Band> {
                 new Band {
                     School="AC Davis Senior High School", 
@@ -112,6 +113,7 @@ namespace HarvestBandFestival.Infrastructure
                 context.Bands.Add(b);
             }
 
+            Trace.WriteLine("Database Initialization Completed");
         }
     }
 }

@@ -56,6 +56,10 @@ public class zNOTES
          * - RouteConfig redirects edit to the first band.
          * - enums and IdentityModel are split into their own classes
          * - used built in Users property of the ApplicationDbContext to create users view
+         * - sprinkled Trace.Writeline statements to help with debugging, hid module loading notifications to clean up output window
+         * - added functionality via attribute routes to look up user via GuID or last name
+         * - used foreign key to create a relationship between Band and Applicationuser
+         *  
          * 
          * */
     }
