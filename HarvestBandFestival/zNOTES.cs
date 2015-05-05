@@ -8,9 +8,8 @@ public class zNOTES
          * TODO DEPENDENCY INJECTIONS
          * add the services folder back in 
          * create some of:
-         *              BandService, IBandService, GenericRepository, IGenericRepository, etc
-         *              
-         *      Infrastucture: GenRepo, IGenRepo
+         *              BandService, IBandService, etc
+         * 
          * 
          * TODO DTOs AND AUTOMAPPER
          * use Automapper to make Band DTOs to work with various views.
@@ -31,9 +30,6 @@ public class zNOTES
          *  - changed the DBInitializer to DropCreateIfNewer
          *   - signinmanager is null. signinmanager should be called from GetOwinContext
          * FIXED: just log out and in again.
-         * 
-         * TODOSTEPHEN - 
-         * was able to reproduct bug: log in, close, restart, attept to open bands/index
          * 
          * 
          * 
