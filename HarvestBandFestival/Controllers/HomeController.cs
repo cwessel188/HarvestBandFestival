@@ -23,8 +23,9 @@ namespace HarvestBandFestival.Controllers
         public ActionResult Contact()
         {
 
+            var user = User.Identity;
             // TODO make this reflect User's contact info
-            ViewBag.Message = "Your contact page.";
+            wwViewBag.Message = "Your contact page.";
 
             return View();
         }
