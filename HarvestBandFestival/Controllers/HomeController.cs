@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Web;
 using System.Web.Mvc;
 
@@ -23,9 +24,9 @@ namespace HarvestBandFestival.Controllers
         public ActionResult Contact()
         {
 
-            var user = User.Identity;
+            ViewBag.ClaimsIdentity = Thread.CurrentPrincipal.Identity;
             // TODO make this reflect User's contact info
-            wwViewBag.Message = "Your contact page.";
+            ViewBag.Message = "Your contact page.";
 
             return View();
         }

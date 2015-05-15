@@ -70,6 +70,27 @@ public class zNOTES
          * IAuthentication manager has a signin method that takes an Identity (with Claims[])
          * we're using PasswordSignInASync, which does not.
          * 
+         * IDEADS
+         * make the band index display competing bands to regular users, all bands to admin
+         * let admins choose to hide noncompeting bands
+         * admins get to view and edit chaims on all users
+         * users don't get to view users.
+         * 
+         * and a score controller in the admins area; allow admins to change scores
+         * create a score object? with 1 to 1 relationship to band.
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
+         * 
          * 
          * 
          * NEAT THINGS TO SHOW OFF
@@ -83,6 +104,9 @@ public class zNOTES
          * 5-4
          * - created a drop list for the bands controller
          * - added functionality to the home page
+         * 5-6
+         * -fiddled with things, changed a few superficial things to the layout
+         * - attempted to create an async signin method on the database initializer, decided it's moer trouble than it's worth
          *  
          * 
          * */

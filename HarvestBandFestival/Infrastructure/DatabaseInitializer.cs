@@ -10,6 +10,8 @@ using System.Web;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using System.Diagnostics;
+using System.Web.Mvc;
+using System.Threading.Tasks;
 
 namespace HarvestBandFestival.Infrastructure
 {
@@ -31,6 +33,7 @@ namespace HarvestBandFestival.Infrastructure
                 };
 
             userManager.Create(overlord, "password");
+
 
             // add claims
             userManager.AddClaim(overlord.Id, new Claim("UserManager", "true"));
@@ -115,5 +118,6 @@ namespace HarvestBandFestival.Infrastructure
 
             Trace.WriteLine("Database Initialization Completed");
         }
+
     }
 }

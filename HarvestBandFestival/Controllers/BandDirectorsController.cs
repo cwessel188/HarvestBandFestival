@@ -108,11 +108,23 @@ namespace HarvestBandFestival.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,StreetAddress,City,State,Zipcode,Email,EmailConfirmed,PasswordHash,SecurityStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEndDateUtc,LockoutEnabled,AccessFailedCount,UserName")] ApplicationUser applicationUser)
+        public ActionResult Edit([Bind(Include = "FirstName,LastName,StreetAddress,City,Territory,Zipcode,Email,PhoneNumber")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {
-                // TODO format like bandcontroller
+                var user = applicationUser;
+
+                // don't use autoMapper for fear of overposting
+                var original = _repo.Find<ApplicationUser>(applicationUser.Id);
+                original.FirstName = applicationUser.FirstName;
+                original.LastName = applicationUser.LastName;
+                original.StreetAddress = applicationUser.StreetAddress;
+                original.City = applicationUser.City;
+                original.Territory = applicationUser.Territory;
+                original.Zipcode = applicationUser.Zipcode;
+                original.Email = applicationUser.Email;
+                original.PhoneNumber = applicationUser.PhoneNumber;
+                original.UserName = applicationUser.Email; // necessary
 
 
                 _repo.SaveChanges();

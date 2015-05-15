@@ -180,6 +180,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Controllers\BandsController.cs" />
     <Compile Include="Controllers\BandDirectorsController.cs" />
     <Compile Include="Domain\Band.cs" />
@@ -204,10 +205,6 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\aspnet-HarvestBandFestival-20150428101806.mdf" />
-    <Content Include="App_Data\aspnet-HarvestBandFestival-20150428101806_log.ldf">
-      <DependentUpon>aspnet-HarvestBandFestival-20150428101806.mdf</DependentUpon>
-    </Content>
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -241,9 +238,15 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="App_Data\" />
+    <Folder Include="Areas\Admin\Controllers\" />
+    <Folder Include="Areas\Admin\Models\" />
+    <Folder Include="Areas\Admin\Views\Shared\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Areas\Admin\Views\web.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Bands\Delete.cshtml" />
     <Content Include="Views\Bands\Index.cshtml" />

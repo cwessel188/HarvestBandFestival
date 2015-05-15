@@ -122,7 +122,7 @@ namespace HarvestBandFestival.Controllers
                 original.BandNickName = band.BandNickName;
                 // removed paidstatus and DatePaid
                 original.ImageSource = band.ImageSource;
-                original.PrimaryContact = band.PrimaryContact;
+                original.PrimaryContactId = band.PrimaryContactId;
 
                 _repo.SaveChanges();
                 return RedirectToAction("Index");
