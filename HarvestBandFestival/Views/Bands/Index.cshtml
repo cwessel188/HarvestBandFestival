@@ -19,7 +19,7 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Division)
-            </th>
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.BandSize)
         </th>
@@ -34,32 +34,45 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.School)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Disctrict)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Division)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BandSize)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PaidStatus)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatePaid)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.School)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Disctrict)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Division)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BandSize)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaidStatus)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatePaid)
+            </td>
+            <td>
+                @if (User.Identity.IsAuthenticated)
+                {
+                    @Html.ActionLink("Details", "Details", new { id = item.Id })
+                }
+                @if (User.Identity.Name == item.PrimaryContact.UserName)
+                {
+                    @: | @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                }
+                @if (PermissionsHelper.UserIsContestStaff())
+                { // TODO I'm hardcoding this admin permission
+
+                    @: | @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    @: | @Html.ActionLink("Edit Scores", "EditScore", new { id = item.Id })
+                    @: | @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                }
+            </td>
+        </tr>
+    }
 
 </table>

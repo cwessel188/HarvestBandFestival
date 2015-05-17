@@ -21,28 +21,12 @@ namespace HarvestBandFestival.Models
         public string Disctrict { get; set; }
         [Required]
         public Division Division { get; set; }
-        //[Required]
-        //[DisplayName("Director First Name")]
-        //public string DirectorFirstName { get; set; }
-        //[Required]
-        //[DisplayName("Director Last Name")]
-        //public string DirectorLastName { get; set; }
-        //[Required]
-        //[DisplayName("Phone Number")]
-        //public string PhoneNumber { get; set; }
-        //[Required]
-        //public string Email { get; set; }
+
         [DisplayName("Band Size")]
         public int BandSize { get; set; }
+
         [DisplayName("Band Nick Name")]
         public string BandNickName { get; set; }
-        //[DisplayName("Street Address")]
-        //public string StreetAddress { get; set; }
-        //public string City { get; set; }
-        //public string State { get; set; }
-
-        //[DisplayName("Zip Code")]
-        //public int ZipCode { get; set; }
 
         [DisplayName("Paid Status")]
         public PaidStatus PaidStatus { get; set; }
@@ -53,10 +37,13 @@ namespace HarvestBandFestival.Models
         public string ImageSource { get; set; } // TODO image implementation 
 
         public string PrimaryContactId { get; set; }
+
         [Display(Name="Primary Contact Information")]
         [ForeignKey("PrimaryContactId")]
         public ApplicationUser PrimaryContact { get; set; }
 
+        public ICollection<Score> Scores { get; set; }
 
     }
+
 }

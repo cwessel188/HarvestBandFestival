@@ -5,6 +5,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using HarvestBandFestival.Models;
 using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace HarvestBandFestival.Infrastructure
 {
@@ -24,10 +25,11 @@ namespace HarvestBandFestival.Infrastructure
 
         public override int SaveChanges()
         {
-            // clever bit of code to catch the except in VS rather than the browser
-            // stolen from StackOverflow
+            // clever bit of code to catch the exception in VS rather than the browser
             try
             {
+
+                Trace.WriteLine("Saving Database");
                 return base.SaveChanges();
             }
             catch (DbEntityValidationException e)
@@ -37,7 +39,7 @@ namespace HarvestBandFestival.Infrastructure
         }
         public IDbSet<Band> Bands { get; set; }
 
-
+      //  public IDbSet<Score> Scores { get; set; }
 
     }
 }

@@ -17,8 +17,9 @@ namespace HarvestBandFestival.Models
             // Add custom user claims here
             
             // TODO add claims for scoreEntry, EditBand, ViewBands, ContestStaff
+            
 
-         //   Claim admin = new Claim(ClaimsIdentity.)
+            Claim ContestStaff = new Claim("ContestStaff", "true");
 
             return userIdentity;
         }

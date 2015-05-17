@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using HarvestBandFestival.Infrastructure;
 using HarvestBandFestival.Models;
+using System.Security.Claims;
 
 namespace HarvestBandFestival.Controllers
 {
@@ -22,6 +23,7 @@ namespace HarvestBandFestival.Controllers
         }
 
         // GET: BandDirectors
+        [Authorize]
         public ActionResult Index()
         {
             return View(_repo.Query<ApplicationUser>().ToList());
@@ -29,6 +31,7 @@ namespace HarvestBandFestival.Controllers
 
         // GET: BandDirectors/Details/5
         // routing attribute that checks for an int
+        [Authorize]
         [Route("BandDirectors/Details/{id:guid}")]
         [HttpGet, ActionName("Details")]
         public ActionResult GetDetailsByGuid(Guid id)
@@ -46,6 +49,7 @@ namespace HarvestBandFestival.Controllers
         }
 
         // GET: BandDirectors by lastName
+        [Authorize]
         [Route("BandDirectors/Details/{lastname}")]
         [HttpGet, ActionName("Details")]
         public ActionResult GetDetailsByLastName(string lastname)
@@ -63,12 +67,21 @@ namespace HarvestBandFestival.Controllers
             }
 
             return View(appUser);
-        }
 
+        }
+        [Authorize]
         // GET: BandDirectors/Create
         public ActionResult Create()
         {
-            return View();
+            if (this.User.Identity.IsAuthenticated)
+            {
+                var user = this.User as ClaimsPrincipal; // tests for null
+                if (user.HasClaim(c => c.Type == "Admin" && c.Value == "true"))
+                {
+                    return View();
+                }
+            }
+            return View(SharedControllerItems.UnauthView);
         }
 
         // POST: BandDirectors/Create
@@ -108,7 +121,7 @@ namespace HarvestBandFestival.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "FirstName,LastName,StreetAddress,City,Territory,Zipcode,Email,PhoneNumber")] ApplicationUser applicationUser)
+        public ActionResult Edit([Bind(Include = "Id,FirstName,LastName,StreetAddress,City,Territory,Zipcode,Email,PhoneNumber")] ApplicationUser applicationUser)
         {
             if (ModelState.IsValid)
             {

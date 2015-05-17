@@ -34,7 +34,6 @@ namespace HarvestBandFestival.Infrastructure
 
             userManager.Create(overlord, "password");
 
-
             // add claims
             userManager.AddClaim(overlord.Id, new Claim("UserManager", "true"));
             userManager.AddClaim(overlord.Id, new Claim("BandManager", "true"));
@@ -47,7 +46,7 @@ namespace HarvestBandFestival.Infrastructure
                 Email = "chazbiroan@codercamps.com"
             };
             userManager.Create(chaz, "password");
-
+            userManager.AddClaim(chaz.Id, new Claim("ContestStaff", "true"));
 
             var scottyG = new ApplicationUser
             {

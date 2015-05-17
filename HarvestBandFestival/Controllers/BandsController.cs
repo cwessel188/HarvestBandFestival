@@ -29,7 +29,7 @@ namespace HarvestBandFestival.Controllers
         // GET: Bands
         public ActionResult Index()
         {
-            var bands = _repo.Query<Band>();
+            var bands = _repo.Query<Band>().Include(b => b.PrimaryContact);
             return View(bands.ToList());
         }
 
@@ -154,6 +154,70 @@ namespace HarvestBandFestival.Controllers
             _repo.Delete<Band>(band);
             _repo.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+
+        // GET: Bands/EditScore/5
+        public ActionResult EditScore(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
+            Band band = _repo.Find<Band>(id);
+            if (band == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(band.Scores);
+        }
+
+        // POST: Bands/EditScore/
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditScore(int id, Score vmScores)
+        {
+            if (ModelState.IsValid)
+            {
+                var newScore = new Score();
+                newScore.Auxiliary = vmScores.Auxiliary;
+                newScore.DrumMajor = vmScores.DrumMajor;
+                newScore.MusicalEffect = vmScores.MusicalEffect;
+                newScore.MusicPerformanceEnsemble = vmScores.MusicPerformanceEnsemble;
+                newScore.MusicPerformanceIndividual = vmScores.MusicPerformanceIndividual;
+                newScore.Percussion = vmScores.Percussion;
+                newScore.VisualEffect = vmScores.VisualEffect;
+                newScore.VisualPerformanceEnsemble = vmScores.VisualPerformanceEnsemble;
+                newScore.VisualPerformanceIndividual = vmScores.VisualPerformanceIndividual;
+
+                //    var band = _repo.Query<Band>().Where( b => b.Scores.Any( s=> s.Id == scores.Id) ).First();
+
+                var band = _repo.Find<Band>(id);
+                // TODO refactor
+
+                var bandScores = from z in _repo.Query<Band>().Include(c => c.Scores) where z.Id == id select z.Scores;
+
+                string currentScore = null;
+
+                if (currentScore == null)
+                {
+                    band.Scores.Add(newScore);
+                }
+
+                else
+                {
+                    band.Scores = new List<Score>();
+                    band.Scores.Add(newScore);
+                }
+
+
+
+                _repo.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(vmScores);
         }
 
         protected override void Dispose(bool disposing)

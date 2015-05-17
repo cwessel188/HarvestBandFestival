@@ -18,7 +18,7 @@ namespace HarvestBandFestival
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            // code for automapper initialization
+            // automapper initialization
             AutoMapperStartup.RegisterMaps();
         }
     }

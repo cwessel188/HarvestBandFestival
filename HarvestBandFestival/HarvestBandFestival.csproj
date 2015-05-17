@@ -180,15 +180,18 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Controllers\BandsController.cs" />
     <Compile Include="Controllers\BandDirectorsController.cs" />
-    <Compile Include="Domain\Band.cs" />
+    <Compile Include="Controllers\ScoresController.cs" />
+    <Compile Include="Controllers\SharedControllerItems.cs" />
+    <Compile Include="Models\Domain\Band.cs" />
     <Compile Include="Infrastructure\GenericRepository.cs" />
-    <Compile Include="Domain\Division.cs" />
-    <Compile Include="Domain\PaidStatus.cs" />
+    <Compile Include="Models\Domain\Division.cs" />
+    <Compile Include="Models\Domain\PaidStatus.cs" />
     <Compile Include="Infrastructure\IGenericRepository.cs" />
-    <Compile Include="Views\Bands\BandsViewModelWithUsers.cs" />
+    <Compile Include="Models\BandsViewModelWithUsers.cs" />
+    <Compile Include="Models\Domain\Score.cs" />
+    <Compile Include="Models\PermissionsHelper.cs" />
     <Compile Include="zNOTES.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -199,12 +202,15 @@
     <Compile Include="Infrastructure\ApplicationDbContext.cs" />
     <Compile Include="Infrastructure\DatabaseInitializer.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Domain\ApplicationUser.cs" />
+    <Compile Include="Models\Domain\ApplicationUser.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Web.config" />
@@ -240,13 +246,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Controllers\" />
-    <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Areas\Admin\Views\Shared\" />
+    <Folder Include="Views\Scores\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <Content Include="Areas\Admin\Views\web.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Bands\Delete.cshtml" />
     <Content Include="Views\Bands\Index.cshtml" />
@@ -258,6 +261,8 @@
     <Content Include="Views\BandDirectors\Details.cshtml" />
     <Content Include="Views\BandDirectors\Edit.cshtml" />
     <Content Include="Views\BandDirectors\Index.cshtml" />
+    <Content Include="Views\Shared\UnauthorizedAccess.cshtml" />
+    <Content Include="Views\Bands\EditScore.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
