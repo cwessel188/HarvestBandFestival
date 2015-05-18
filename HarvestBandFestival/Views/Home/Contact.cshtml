@@ -1,27 +1,10 @@
 ﻿@{
     ViewBag.Title = "Contact";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<h2>Contact Us!</h2>
 
-@if (Request.IsAuthenticated)
-{
-    <address>
-        @ViewBag.ClaimsIdentity.Name<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">P:</abbr>
-    </address>
-}
-else
-{
-    <address>
-        One Microsoft Way<br />
-        Redmond, WA 98052-6399<br />
-        <abbr title="Phone">P:</abbr>
-        425.555.0100
-    </address>
-}
+Find us on <a href="https://www.facebook.com/pages/Harvest-Marching-Band-Festival/177683765646501">Facebook!</a>
+
 <address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
+   Website Support: wesselcp@plu.edu
 </address>

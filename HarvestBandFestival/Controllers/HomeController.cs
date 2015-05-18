@@ -30,5 +30,9 @@ namespace HarvestBandFestival.Controllers
 
             return View();
         }
+        public ActionResult SpectatorInfo()
+        {
+            return View();
+        }
     }
 }

@@ -12,10 +12,10 @@ namespace HarvestBandFestival.Models {
     public class Score
     {
 
-        //public Score()
-        //{
-        //    Year = DateTime.Now.Year;
-        //}
+        public Score()
+        {
+            Year = DateTime.Now.Year;
+        }
         [Key]
         public int Id { get; set; }
         public int Year { get; set; }

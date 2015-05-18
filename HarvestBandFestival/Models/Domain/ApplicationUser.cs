@@ -42,6 +42,13 @@ namespace HarvestBandFestival.Models
         public string Territory { get; set; }
         public int? Zipcode { get; set; }
 
+
+        public string FullName
+        {
+            get { return this.FirstName + " " + this.LastName; }
+        }
+        
+
     }
 
 

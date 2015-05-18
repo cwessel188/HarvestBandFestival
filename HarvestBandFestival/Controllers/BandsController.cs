@@ -89,7 +89,7 @@ namespace HarvestBandFestival.Controllers
             // create a list of users to pass to the view
             var userList = _repo.Query<ApplicationUser>().ToList();
 
-            SelectList s = new SelectList(userList, "Id", "LastName");
+            SelectList s = new SelectList(userList, "Id", "FullName");
 
             vm.Band = band;
             vm.AppUsers = s;
@@ -165,7 +165,7 @@ namespace HarvestBandFestival.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Band band = _repo.Find<Band>(id);
+            var band = (_repo.Query<Band>().Include(b => b.Scores).Where(b => b.Id == id)).FirstOrDefault();
             if (band == null)
             {
                 return HttpNotFound();
@@ -173,7 +173,8 @@ namespace HarvestBandFestival.Controllers
 
             if (band.Scores.Count == 0 || band.Scores.Last().Year != DateTime.Now.Year )
             {
-                band.Scores.Add(new Score() );
+                band.Scores.Add(new Score());
+                _repo.SaveChanges();
                 return View(band.Scores.Last() );
             }
             else
@@ -183,32 +184,30 @@ namespace HarvestBandFestival.Controllers
         // POST: Bands/EditScore/
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult EditScore(int id, Score vmScores)
+        public ActionResult EditScore(int id, Score vmScore)
         {
             if (ModelState.IsValid)
             {
-                var newScore = new Score();
-                newScore.Auxiliary = vmScores.Auxiliary;
-                newScore.DrumMajor = vmScores.DrumMajor;
-                newScore.MusicalEffect = vmScores.MusicalEffect;
-                newScore.MusicPerformanceEnsemble = vmScores.MusicPerformanceEnsemble;
-                newScore.MusicPerformanceIndividual = vmScores.MusicPerformanceIndividual;
-                newScore.Percussion = vmScores.Percussion;
-                newScore.VisualEffect = vmScores.VisualEffect;
-                newScore.VisualPerformanceEnsemble = vmScores.VisualPerformanceEnsemble;
-                newScore.VisualPerformanceIndividual = vmScores.VisualPerformanceIndividual;
+                var band = (_repo.Query<Band>().Include(b => b.Scores).Where(b => b.Id == id)).FirstOrDefault();
+                var oldScore = band.Scores.Last();
+                oldScore.Auxiliary = vmScore.Auxiliary;
+                oldScore.DrumMajor = vmScore.DrumMajor;
+                oldScore.MusicalEffect = vmScore.MusicalEffect;
+                oldScore.MusicPerformanceEnsemble = vmScore.MusicPerformanceEnsemble;
+                oldScore.MusicPerformanceIndividual = vmScore.MusicPerformanceIndividual;
+                oldScore.Percussion = vmScore.Percussion;
+                oldScore.VisualEffect = vmScore.VisualEffect;
+                oldScore.VisualPerformanceEnsemble = vmScore.VisualPerformanceEnsemble;
+                oldScore.VisualPerformanceIndividual = vmScore.VisualPerformanceIndividual;
                 // TODO remove business logic from controller
 
-                var band = _repo.Find<Band>(id);
-                band.Scores.Last() = newScore;
-
-             //   var bandScores = from z in _repo.Query<Band>().Include(c => c.Scores) where z.Id == id select z.Scores;
+                //   var bandScores = from z in _repo.Query<Band>().Include(c => c.Scores) where z.Id == id select z.Scores;
 
                
                 _repo.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(vmScores);
+            return View(vmScore);
         }
 
         protected override void Dispose(bool disposing)

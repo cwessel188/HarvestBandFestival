@@ -30,6 +30,9 @@ namespace HarvestBandFestival.Infrastructure
                 {
                     UserName = "wesselcp@plu.edu",
                     Email = "wesselcp@plu.edu",
+                    FirstName = "Christopher",
+                    LastName = "Wessel",
+                    Territory = "WA"
                 };
 
             userManager.Create(overlord, "password");
@@ -42,7 +45,9 @@ namespace HarvestBandFestival.Infrastructure
             var chaz = new ApplicationUser
             {
                 UserName = "chazbiroan@codercamps.com",
-                Email = "chazbiroan@codercamps.com"
+                Email = "chazbiroan@codercamps.com",
+                FirstName = "Chaz",
+                LastName = "Biroan"
             };
             userManager.Create(chaz, "password");
             userManager.AddClaim(chaz.Id, new Claim("ContestStaff", "true"));
@@ -90,7 +95,8 @@ namespace HarvestBandFestival.Infrastructure
                     Disctrict="Yakima School District",
                     Division=Division.Exhibition, 
                     BandNickName="The Davis High School Buccaneer Marching Band",
-                    PrimaryContact = scottyG
+                    PrimaryContact = scottyG,
+                    ImageSource = "https://pbs.twimg.com/profile_images/1263985888/71099_57290023924_351787_n.jpg"
                 },
                     new Band {
                     School="IKE", 
@@ -157,7 +163,7 @@ namespace HarvestBandFestival.Infrastructure
                     Auxiliary = 71.5,
                     DrumMajor = 67
                 }
-                );
+               );
 
             context.Bands.Add(WVYakima);
 

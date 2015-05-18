@@ -46,7 +46,16 @@ namespace HarvestBandFestival.Models
         [ForeignKey("PrimaryContactId")]
         public ApplicationUser PrimaryContact { get; set; }
 
-        public ICollection<Score> Scores { get; set; }
+        public IList<Score> Scores { get; set; }
+
+        private int myVar;
+
+        public int MyProperty
+        {
+            get { return myVar; }
+            set { myVar = value; }
+        }
+        
 
     }
 

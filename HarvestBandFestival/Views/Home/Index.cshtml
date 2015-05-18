@@ -5,33 +5,63 @@
 @using Microsoft.AspNet.Identity
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+    <h1>Harvest Band Festival</h1>
+    <p class="lead">
+        The Fifteenth Annual Harvest Marching Band Festival!<br />
+        Saturday, October 17, 2015 at Zaepfel Stadium in Yakima, Washington
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            Welcome to the new Harvest Band Festival website! Login to view more content.
-        </p>
-        <p>
-        @Html.ActionLink(linkText: "Bands",
+
+
+    @if (!this.User.Identity.IsAuthenticated)
+    {
+        <div class="col-md-4">
+            <h2>Welcome!</h2>
+            <p>
+                Welcome to the new Harvest Band Festival website! Login to view more content.
+            </p>
+            <p>
+                @Html.ActionLink(linkText: "Spectator Information",
+                            actionName: "SpectatorInfo",
+                            controllerName: "Home")
+            </p>
+            <p>
+                @Html.ActionLink(linkText: "View Registered Bands",
                             actionName: "Index",
                             controllerName: "Bands")
-        </p>
-    </div>
-    @if (this.User.Identity.IsAuthenticated) { 
-    <div class="col-md-4">
-        <h2>Logged in </h2>
-        <p>Logged in as @User.Identity.GetUserName()</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
+            </p>
+        </div>
+    }
+    @if (this.User.Identity.IsAuthenticated)
+    {
+        <div class="col-md-4">
+            <h2>Logged in </h2>
+            <p>Logged in as @User.Identity.GetUserName()</p>
+            <p>Use the links above to navigate</p>
+        </div>
     }
     <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+        <h2>Festival Goals:</h2>
+        <p>
+            <ul>
+                <li>
+                    To showcase the finest High School Marching Bands in the Northwest
+                </li>
+                <li>
+                    To provide Bands and Band Directors with the highest quality judging and performance feedback
+                </li>
+                <li>
+                    To provide the citizens of Central Washington an opportunity to see the best of today's youth perform at the highest levels
+                </li>
+                <li>
+                    To provide the city of Yakima with an economic stimulus
+                </li>
+                <li>
+                    To support the Band programs of both A.C. Davis and Eisenhower High Schools
+                </li>
+            </ul>
+        </p>
     </div>
+
 </div>

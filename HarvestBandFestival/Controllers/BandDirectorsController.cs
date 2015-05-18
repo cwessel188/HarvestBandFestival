@@ -26,11 +26,12 @@ namespace HarvestBandFestival.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            return View(_repo.Query<ApplicationUser>().ToList());
+            var Bands = _repo.Query<ApplicationUser>().ToList();
+            return View(Bands);
         }
 
         // GET: BandDirectors/Details/5
-        // routing attribute that checks for an int
+        // routing attribute that checks for a guid
         [Authorize]
         [Route("BandDirectors/Details/{id:guid}")]
         [HttpGet, ActionName("Details")]

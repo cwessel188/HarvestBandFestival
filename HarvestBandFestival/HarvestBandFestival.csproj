@@ -184,6 +184,7 @@
     <Compile Include="Controllers\BandDirectorsController.cs" />
     <Compile Include="Controllers\ScoresController.cs" />
     <Compile Include="Controllers\SharedControllerItems.cs" />
+    <Compile Include="Models\BandsIndexViewModel.cs" />
     <Compile Include="Models\Domain\Band.cs" />
     <Compile Include="Infrastructure\GenericRepository.cs" />
     <Compile Include="Models\Domain\Division.cs" />
@@ -243,13 +244,16 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="zNOTES.txt" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Services\" />
     <Folder Include="Views\Scores\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <Content Include="Content\variables.less" />
     <None Include="Project_Readme.html" />
     <Content Include="Views\Bands\Delete.cshtml" />
     <Content Include="Views\Bands\Index.cshtml" />
@@ -263,6 +267,7 @@
     <Content Include="Views\BandDirectors\Index.cshtml" />
     <Content Include="Views\Shared\UnauthorizedAccess.cshtml" />
     <Content Include="Views\Bands\EditScore.cshtml" />
+    <Content Include="Views\Home\SpectatorInfo.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
