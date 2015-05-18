@@ -171,7 +171,13 @@ namespace HarvestBandFestival.Controllers
                 return HttpNotFound();
             }
 
-            return View(band.Scores);
+            if (band.Scores.Count == 0 || band.Scores.Last().Year != DateTime.Now.Year )
+            {
+                band.Scores.Add(new Score() );
+                return View(band.Scores.Last() );
+            }
+            else
+            return View(band.Scores.Last() );
         }
 
         // POST: Bands/EditScore/
@@ -191,29 +197,14 @@ namespace HarvestBandFestival.Controllers
                 newScore.VisualEffect = vmScores.VisualEffect;
                 newScore.VisualPerformanceEnsemble = vmScores.VisualPerformanceEnsemble;
                 newScore.VisualPerformanceIndividual = vmScores.VisualPerformanceIndividual;
-
-                //    var band = _repo.Query<Band>().Where( b => b.Scores.Any( s=> s.Id == scores.Id) ).First();
+                // TODO remove business logic from controller
 
                 var band = _repo.Find<Band>(id);
-                // TODO refactor
+                band.Scores.Last() = newScore;
 
-                var bandScores = from z in _repo.Query<Band>().Include(c => c.Scores) where z.Id == id select z.Scores;
+             //   var bandScores = from z in _repo.Query<Band>().Include(c => c.Scores) where z.Id == id select z.Scores;
 
-                string currentScore = null;
-
-                if (currentScore == null)
-                {
-                    band.Scores.Add(newScore);
-                }
-
-                else
-                {
-                    band.Scores = new List<Score>();
-                    band.Scores.Add(newScore);
-                }
-
-
-
+               
                 _repo.SaveChanges();
                 return RedirectToAction("Index");
             }

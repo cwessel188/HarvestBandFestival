@@ -17,7 +17,8 @@ namespace HarvestBandFestival.Models
             // Add custom user claims here
             
             // TODO add claims for scoreEntry, EditBand, ViewBands, ContestStaff
-            
+            // new claim Admin
+            // new claim ContestStaff
 
             Claim ContestStaff = new Claim("ContestStaff", "true");
 
@@ -37,6 +38,7 @@ namespace HarvestBandFestival.Models
         public string StreetAddress { get; set; }
         public string City { get; set; }
         [MaxLength(2, ErrorMessage="Please enter two characters i.e.'WA'")]
+        [Display(Name = "State")]
         public string Territory { get; set; }
         public int? Zipcode { get; set; }
 

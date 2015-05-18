@@ -13,6 +13,10 @@ namespace HarvestBandFestival.Models
     /// </summary>
     public class Band
     {
+        public Band()
+        {
+            Scores = new List<Score>();
+        }
         [Key]
         public int Id { get; set; }
         [Required]

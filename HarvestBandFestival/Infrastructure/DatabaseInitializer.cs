@@ -24,7 +24,7 @@ namespace HarvestBandFestival.Infrastructure
             Trace.WriteLine("Database Initialization Started");
 
             var userManager = HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            
+
             // add Overlord to Db
             var overlord = new ApplicationUser
                 {
@@ -35,8 +35,7 @@ namespace HarvestBandFestival.Infrastructure
             userManager.Create(overlord, "password");
 
             // add claims
-            userManager.AddClaim(overlord.Id, new Claim("UserManager", "true"));
-            userManager.AddClaim(overlord.Id, new Claim("BandManager", "true"));
+            userManager.AddClaim(overlord.Id, new Claim("Admin", "true"));
             userManager.AddClaim(overlord.Id, new Claim("ContestStaff", "true"));
 
             // add plain users to Db
@@ -68,7 +67,7 @@ namespace HarvestBandFestival.Infrastructure
             };
             userManager.Create(wally, "password");
 
-            var legituser = new ApplicationUser
+            var dillon = new ApplicationUser
             {
                 FirstName = "Dillon",
                 LastName = "Miller",
@@ -80,7 +79,7 @@ namespace HarvestBandFestival.Infrastructure
                 Territory = "WA",
                 Zipcode = 98336
             };
-            userManager.Create(legituser, "password");
+            userManager.Create(dillon, "password");
 
 
 
@@ -98,22 +97,87 @@ namespace HarvestBandFestival.Infrastructure
                     Disctrict="Yakima School District",
                     Division=Division.Exhibition, 
                     PrimaryContact=wally
-                },
-                    new Band {
-                    School="Kennewick High School", 
-                    Disctrict="Kennewick School District",
-                    Division=Division.AA, 
-                    BandNickName="The Pride of the Mid Columbia Basin",
-                    BandSize=45,
-                    PaidStatus=PaidStatus.Application_Received,
-                    PrimaryContact=legituser
-                }    
+                    }
+                    
             };
 
             foreach (var b in bands)
             {
                 context.Bands.Add(b);
             }
+
+            var WVYakima = new Band
+            {
+                School = "West Valley High School",
+                Disctrict = "West Valley School District",
+                Division = Division.AAA_S,
+                BandSize = 100,
+                PrimaryContact = chaz
+            };
+
+            var Kenn = new Band
+            {
+                School = "Kennewick High School",
+                Disctrict = "Kennewick School District",
+                Division = Division.AA,
+                BandNickName = "The Pride of the Mid Columbia Basin",
+                BandSize = 45,
+                PaidStatus = PaidStatus.Application_Received,
+                PrimaryContact = dillon
+            };
+            // ====================================Scores==========================================
+
+            WVYakima.Scores.Add(
+            new Score
+                {
+                    Year = 2001,
+                    MusicPerformanceEnsemble = 206.5,
+                    MusicPerformanceIndividual = 206.5,
+                    VisualPerformanceEnsemble = 104.5,
+                    VisualPerformanceIndividual = 104.5,
+                    MusicalEffect = 167,
+                    VisualEffect = 106,
+                    Percussion = 55,
+                    Auxiliary = 55,
+                    DrumMajor = 0
+                }
+            );
+
+            WVYakima.Scores.Add(
+                new Score
+                {
+                    Year = 2005,
+                    MusicPerformanceEnsemble = 245,
+                    MusicPerformanceIndividual = 271,
+                    VisualPerformanceEnsemble = 164,
+                    VisualPerformanceIndividual = 152,
+                    MusicalEffect = 239,
+                    VisualEffect = 185,
+                    Percussion = 76,
+                    Auxiliary = 71.5,
+                    DrumMajor = 67
+                }
+                );
+
+            context.Bands.Add(WVYakima);
+
+            Kenn.Scores.Add(
+                new Score
+                {
+                    Year = 2005,
+                    MusicPerformanceEnsemble = 250,
+                    MusicPerformanceIndividual = 252,
+                    VisualPerformanceEnsemble = 161,
+                    VisualPerformanceIndividual = 148,
+                    MusicalEffect = 250,
+                    VisualEffect = 210,
+                    Percussion = 78,
+                    Auxiliary = 75,
+                    DrumMajor = 71
+                }
+            );
+
+            context.Bands.Add(Kenn);
 
             Trace.WriteLine("Database Initialization Completed");
         }

@@ -21,30 +21,30 @@ namespace HarvestBandFestival.Models {
         public int Year { get; set; }
 
         [DisplayName("Music Performance - Ensemble")]
-        public decimal MusicPerformanceEnsemble { get; set; }
+        public double MusicPerformanceEnsemble { get; set; }
 
         [DisplayName("Music Performance - Individual")]
-        public decimal MusicPerformanceIndividual { get; set; }
+        public double MusicPerformanceIndividual { get; set; }
 
         [DisplayName("Percussion")]
-        public decimal Percussion { get; set; }
+        public double Percussion { get; set; }
 
         [DisplayName("Visual Performance - Ensemble")]
-        public decimal VisualPerformanceEnsemble { get; set; }
+        public double VisualPerformanceEnsemble { get; set; }
 
         [DisplayName("Visual Performance - Individual")]
-        public decimal VisualPerformanceIndividual { get; set; }
+        public double VisualPerformanceIndividual { get; set; }
 
         [DisplayName("Auxiliary")]
-        public decimal Auxiliary { get; set; }
+        public double Auxiliary { get; set; }
 
         [DisplayName("Musical Effect")]
-        public decimal MusicalEffect { get; set; }
+        public double MusicalEffect { get; set; }
 
         [DisplayName("Visual Effect")]
-        public decimal VisualEffect { get; set; }
+        public double VisualEffect { get; set; }
 
         [DisplayName("Drum Major")]
-        public decimal DrumMajor { get; set; }
+        public double DrumMajor { get; set; }
     }
 }
