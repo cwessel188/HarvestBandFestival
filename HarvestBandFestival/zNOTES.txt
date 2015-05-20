@@ -8,9 +8,6 @@
          * use Automapper to make Band DTOs to work with various views.
          * eg. a BandIndexDTO for the index view to only display necessary information
          * 
-         * TODO ADMIN AREA
-         * an admin only area with access to every account and the front end of the site
-         * 
          * 
          * TODO create a custom Razor helper for to edit Primarycontact. add to neat things.
          * 
@@ -93,3 +90,14 @@
          * 5-6
          * -fiddled with things, changed a few superficial things to the layout
          * - attempted to create an async signin method on the database initializer, decided it's moer trouble than it's worth
+
+
+
+		 THINGS TO SAY
+
+		 asp.net mvc
+		 c#
+		 entity framework
+		 anjulerJS
+		 asp.new web api
+		 dependency injection

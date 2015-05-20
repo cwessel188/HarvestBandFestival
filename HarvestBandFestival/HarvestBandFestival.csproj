@@ -193,7 +193,6 @@
     <Compile Include="Models\BandsViewModelWithUsers.cs" />
     <Compile Include="Models\Domain\Score.cs" />
     <Compile Include="Models\PermissionsHelper.cs" />
-    <Compile Include="zNOTES.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />

@@ -50,7 +50,6 @@ namespace HarvestBandFestival.Tests.Services
 
 
             // assert
-            userMock.Verify(p => p.IsInRole("admin"));
             Assert.AreEqual(((ViewResult)result).ViewName, "Index");
         }
     }

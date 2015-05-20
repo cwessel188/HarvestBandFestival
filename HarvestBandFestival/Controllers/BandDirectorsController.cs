@@ -41,7 +41,7 @@ namespace HarvestBandFestival.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            ApplicationUser appUser = _repo.Find<ApplicationUser>(id);
+            ApplicationUser appUser = _repo.Find<ApplicationUser>(id.ToString()); // TODO test
             if (appUser == null)
             {
                 return HttpNotFound();
