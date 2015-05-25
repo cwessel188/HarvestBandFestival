@@ -13,6 +13,7 @@ using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using System.Threading.Tasks;
 using HarvestBandFestival.Views.BandDirectors;
+using HarvestBandFestival.Services;
 
 namespace HarvestBandFestival.Controllers
 {
@@ -26,10 +27,22 @@ namespace HarvestBandFestival.Controllers
         {
             _repo = repo;
         }
+
+        // SERVICES allow for seperation of concerns
+        // the controller never hits the database directly
+        private IBandService _bandservice;
+
+        public BandsController(IBandService service)
+        {
+            _bandservice = service;
+        }
+
+
         // GET: Bands
         public ActionResult Index()
         {
             var bands = _repo.Query<Band>().Include(b => b.PrimaryContact);
+            // var bands = _bandservice.GetBands();
             return View(bands.ToList());
         }
 
@@ -41,9 +54,11 @@ namespace HarvestBandFestival.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Band band = _repo.Find<Band>(id);
+            // _bandservice.FindById(id);
 
             // this is ghetto
             band.PrimaryContact = _repo.Find<ApplicationUser>(band.PrimaryContactId);
+            // band.PrimaryContact = _bandservice.FindUserByContactId(band.PrimaryContactId);
 
             if (band == null)
             {
@@ -69,6 +84,8 @@ namespace HarvestBandFestival.Controllers
             {
                 _repo.Add<Band>(band);
                 _repo.SaveChanges();
+
+                // _bandservice.AddBand(band);
                 return RedirectToAction("Index");
             }
 
@@ -85,9 +102,11 @@ namespace HarvestBandFestival.Controllers
 
             BandsViewModelWithUsers vm = new BandsViewModelWithUsers();
             Band band = _repo.Find<Band>(id);
+           // _bandservice.FinfbandById(id);
 
             // create a list of users to pass to the view
             var userList = _repo.Query<ApplicationUser>().ToList();
+            // = _bandservice.GetApplicationUsers()
 
             SelectList s = new SelectList(userList, "Id", "FullName");
 
@@ -111,6 +130,7 @@ namespace HarvestBandFestival.Controllers
         {
             if (ModelState.IsValid)
             {
+                // cut
                 var band = vm.Band;
 
                 // don't use autoMapper for fear of overposting
@@ -125,6 +145,8 @@ namespace HarvestBandFestival.Controllers
                 original.PrimaryContactId = band.PrimaryContactId;
 
                 _repo.SaveChanges();
+                // _bs.UpdateBand(vm.Band)
+
                 return RedirectToAction("Index");
             }
             return View(vm);
@@ -138,6 +160,7 @@ namespace HarvestBandFestival.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Band band = _repo.Find<Band>(id);
+            // bs.getBandById
             if (band == null)
             {
                 return HttpNotFound();
@@ -153,6 +176,7 @@ namespace HarvestBandFestival.Controllers
             Band band = _repo.Find<Band>(id);
             _repo.Delete<Band>(band);
             _repo.SaveChanges();
+            // DeleteBand()
             return RedirectToAction("Index");
         }
 
@@ -179,6 +203,15 @@ namespace HarvestBandFestival.Controllers
             }
             else
             return View(band.Scores.Last() );
+
+            /*
+             * var score = _bandservice.GetScoreForCurrentYearById(id)
+             * if score == null {
+             * return HttpNotFound();
+             * }
+             * 
+             * return View(score);
+             * */
         }
 
         // POST: Bands/EditScore/
@@ -205,18 +238,11 @@ namespace HarvestBandFestival.Controllers
 
                
                 _repo.SaveChanges();
+                // bs.UpdateCurrentScore(id, vmScore);
                 return RedirectToAction("Index");
             }
             return View(vmScore);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                _repo.Dispose();
-            }
-            base.Dispose(disposing);
-        }
     }
 }
