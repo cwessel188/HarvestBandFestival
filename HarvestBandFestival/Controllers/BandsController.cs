@@ -19,15 +19,6 @@ namespace HarvestBandFestival.Controllers
 {
     public class BandsController : Controller
     {
-        // creates a generic repository
-        private IGenericRepository _repo;
-
-        // maps the generic repo to my EFRepository
-        public BandsController(IGenericRepository repo)
-        {
-            _repo = repo;
-        }
-
         // SERVICES allow for seperation of concerns
         // the controller never hits the database directly
         private IBandService _bandservice;
@@ -40,9 +31,8 @@ namespace HarvestBandFestival.Controllers
 
         // GET: Bands
         public ActionResult Index()
-        {
-            var bands = _repo.Query<Band>().Include(b => b.PrimaryContact);
-            // var bands = _bandservice.GetBands();
+        {           
+            var bands = _bandservice.GetBands();
             return View(bands.ToList());
         }
 
@@ -53,12 +43,9 @@ namespace HarvestBandFestival.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Band band = _repo.Find<Band>(id);
-            // _bandservice.FindById(id);
+            Band band = _bandservice.FindById(id);
 
-            // this is ghetto
-            band.PrimaryContact = _repo.Find<ApplicationUser>(band.PrimaryContactId);
-            // band.PrimaryContact = _bandservice.FindUserByContactId(band.PrimaryContactId);
+            band.PrimaryContact = _bandservice.FindUserByContactId(band.PrimaryContactId);
 
             if (band == null)
             {
@@ -82,10 +69,7 @@ namespace HarvestBandFestival.Controllers
         {
             if (ModelState.IsValid)
             {
-                _repo.Add<Band>(band);
-                _repo.SaveChanges();
-
-                // _bandservice.AddBand(band);
+                _bandservice.AddBand(band);
                 return RedirectToAction("Index");
             }
 
@@ -101,12 +85,10 @@ namespace HarvestBandFestival.Controllers
             }
 
             BandsViewModelWithUsers vm = new BandsViewModelWithUsers();
-            Band band = _repo.Find<Band>(id);
-           // _bandservice.FinfbandById(id);
+            Band band = _bandservice.FindById(id);
 
             // create a list of users to pass to the view
-            var userList = _repo.Query<ApplicationUser>().ToList();
-            // = _bandservice.GetApplicationUsers()
+            var userList = _bandservice.GetApplicationUsers();
 
             SelectList s = new SelectList(userList, "Id", "FullName");
 
@@ -130,22 +112,7 @@ namespace HarvestBandFestival.Controllers
         {
             if (ModelState.IsValid)
             {
-                // cut
-                var band = vm.Band;
-
-                // don't use autoMapper for fear of overposting
-                var original = _repo.Find<Band>(band.Id);
-                original.School = band.School;
-                original.Disctrict = band.Disctrict;
-                original.Division = band.Division;
-                original.BandSize = band.BandSize;
-                original.BandNickName = band.BandNickName;
-                // removed paidstatus and DatePaid
-                original.ImageSource = band.ImageSource;
-                original.PrimaryContactId = band.PrimaryContactId;
-
-                _repo.SaveChanges();
-                // _bs.UpdateBand(vm.Band)
+                _bandservice.UpdateBand(vm.Band);
 
                 return RedirectToAction("Index");
             }
@@ -159,8 +126,7 @@ namespace HarvestBandFestival.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Band band = _repo.Find<Band>(id);
-            // bs.getBandById
+            Band band = _bandservice.FindById(id);
             if (band == null)
             {
                 return HttpNotFound();
@@ -173,10 +139,7 @@ namespace HarvestBandFestival.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Band band = _repo.Find<Band>(id);
-            _repo.Delete<Band>(band);
-            _repo.SaveChanges();
-            // DeleteBand()
+            _bandservice.DeleteBandById(id);
             return RedirectToAction("Index");
         }
 
@@ -189,29 +152,13 @@ namespace HarvestBandFestival.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var band = (_repo.Query<Band>().Include(b => b.Scores).Where(b => b.Id == id)).FirstOrDefault();
-            if (band == null)
-            {
-                return HttpNotFound();
-            }
-
-            if (band.Scores.Count == 0 || band.Scores.Last().Year != DateTime.Now.Year )
-            {
-                band.Scores.Add(new Score());
-                _repo.SaveChanges();
-                return View(band.Scores.Last() );
-            }
-            else
-            return View(band.Scores.Last() );
-
-            /*
-             * var score = _bandservice.GetScoreForCurrentYearById(id)
-             * if score == null {
-             * return HttpNotFound();
-             * }
-             * 
-             * return View(score);
-             * */
+             var score = _bandservice.GetScoreForCurrentYearById(id);
+             if (score == null) {
+             return HttpNotFound();
+             }
+              
+             return View(score);
+             
         }
 
         // POST: Bands/EditScore/
@@ -221,24 +168,7 @@ namespace HarvestBandFestival.Controllers
         {
             if (ModelState.IsValid)
             {
-                var band = (_repo.Query<Band>().Include(b => b.Scores).Where(b => b.Id == id)).FirstOrDefault();
-                var oldScore = band.Scores.Last();
-                oldScore.Auxiliary = vmScore.Auxiliary;
-                oldScore.DrumMajor = vmScore.DrumMajor;
-                oldScore.MusicalEffect = vmScore.MusicalEffect;
-                oldScore.MusicPerformanceEnsemble = vmScore.MusicPerformanceEnsemble;
-                oldScore.MusicPerformanceIndividual = vmScore.MusicPerformanceIndividual;
-                oldScore.Percussion = vmScore.Percussion;
-                oldScore.VisualEffect = vmScore.VisualEffect;
-                oldScore.VisualPerformanceEnsemble = vmScore.VisualPerformanceEnsemble;
-                oldScore.VisualPerformanceIndividual = vmScore.VisualPerformanceIndividual;
-                // TODO remove business logic from controller
-
-                //   var bandScores = from z in _repo.Query<Band>().Include(c => c.Scores) where z.Id == id select z.Scores;
-
-               
-                _repo.SaveChanges();
-                // bs.UpdateCurrentScore(id, vmScore);
+                _bandservice.UpdateCurrentScore(id, vmScore);
                 return RedirectToAction("Index");
             }
             return View(vmScore);

@@ -12,7 +12,6 @@ namespace HarvestBandFestival.Services
         // ensures this class uses only generics
         private IGenericRepository _repo;
 
-        // maps the generic repo to one that's more useful
         public BandService(IGenericRepository repo)
         {
             _repo = repo;
@@ -23,12 +22,12 @@ namespace HarvestBandFestival.Services
             return _repo.Query<Band>().Include(b => b.PrimaryContact).ToList();
         }
 
-        public Band FindById(int id)
+        public Band FindById(int? id)
         {
             return _repo.Find<Band>(id);
         }
 
-        public ApplicationUser FindUserByContactId(int id)
+        public ApplicationUser FindUserByContactId(string id)
         {
             return _repo.Find<ApplicationUser>(id);
         }
@@ -65,7 +64,7 @@ namespace HarvestBandFestival.Services
             _repo.SaveChanges();
         }
 
-        public Score GetScoreForCurrentYearById(int id)
+        public Score GetScoreForCurrentYearById(int? id)
         {
             var band = (_repo.Query<Band>().Include(b => b.Scores).Where(b => b.Id == id)).FirstOrDefault();
 

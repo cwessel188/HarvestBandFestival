@@ -11,6 +11,7 @@ namespace HarvestBandFestival.App_Start
     using Ninject;
     using Ninject.Web.Common;
     using HarvestBandFestival.Infrastructure;
+    using HarvestBandFestival.Services;
 
     public static class NinjectWebCommon 
     {
@@ -46,9 +47,6 @@ namespace HarvestBandFestival.App_Start
                 kernel.Bind<Func<IKernel>>().ToMethod(ctx => () => new Bootstrapper().Kernel);
                 kernel.Bind<IHttpModule>().To<HttpApplicationInitializationHttpModule>();
 
-                // pulled from Coder Camps on Dependency Injection
-                kernel.Bind<IGenericRepository>().To<GenericRepository>();
-
                 RegisterServices(kernel);
                 return kernel;
             }
@@ -65,6 +63,9 @@ namespace HarvestBandFestival.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
+            // added bindings for dependency injections
+            kernel.Bind<IBandService>().To<BandService>();
+            kernel.Load(new ServicesDependencies());
         }        
     }
 }
