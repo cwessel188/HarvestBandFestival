@@ -12,7 +12,6 @@ using HarvestBandFestival.Models;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using System.Threading.Tasks;
-using HarvestBandFestival.Views.BandDirectors;
 using HarvestBandFestival.Services;
 
 namespace HarvestBandFestival.Controllers
@@ -31,7 +30,7 @@ namespace HarvestBandFestival.Controllers
 
         // GET: Bands
         public ActionResult Index()
-        {           
+        {
             var bands = _bandservice.GetBands();
             return View(bands.ToList());
         }
@@ -57,7 +56,15 @@ namespace HarvestBandFestival.Controllers
         // GET: Bands/Create
         public ActionResult Create()
         {
-            return View();
+            var userList = _bandservice.GetApplicationUsers();
+            var vm = new BandsViewModelWithUsers();
+
+            SelectList s = new SelectList(userList, "Id", "FullName");
+
+            vm.Band = new Band();
+
+            vm.AppUsers = s;
+            return View(vm);
         }
 
         // POST: Bands/Create
@@ -65,15 +72,16 @@ namespace HarvestBandFestival.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "School,Disctrict,Division,BandSize,BandNickName,PaidStatus,DatePaid,ImageSource")] Band band)
+        //Include = "[Bind(School,Disctrict,Division,BandSize,BandNickName,PaidStatus,DatePaid,ImageSource")]
+        public ActionResult Create(BandsViewModelWithUsers vm)
         {
             if (ModelState.IsValid)
             {
-                _bandservice.AddBand(band);
+                _bandservice.AddBand(vm.Band);
                 return RedirectToAction("Index");
             }
 
-            return View(band);
+            return View(vm);
         }
 
         // GET: Bands/Edit/5
@@ -152,13 +160,14 @@ namespace HarvestBandFestival.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-             var score = _bandservice.GetScoreForCurrentYearById(id);
-             if (score == null) {
-             return HttpNotFound();
-             }
-              
-             return View(score);
-             
+            var score = _bandservice.GetScoreForCurrentYearById(id);
+            if (score == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(score);
+
         }
 
         // POST: Bands/EditScore/

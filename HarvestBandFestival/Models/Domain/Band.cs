@@ -42,6 +42,7 @@ namespace HarvestBandFestival.Models
 
         public string PrimaryContactId { get; set; }
 
+        [Required]
         [Display(Name="Primary Contact Information")]
         [ForeignKey("PrimaryContactId")]
         public ApplicationUser PrimaryContact { get; set; }

@@ -5,7 +5,7 @@ using System.Web;
 using HarvestBandFestival.Models;
 using System.Web.Mvc;
 
-namespace HarvestBandFestival.Views.BandDirectors
+namespace HarvestBandFestival.Models
 {
     public class BandsViewModelWithUsers
     {

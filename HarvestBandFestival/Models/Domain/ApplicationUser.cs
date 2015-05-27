@@ -25,7 +25,8 @@ namespace HarvestBandFestival.Models
             return userIdentity;
         }
 
-         // Inherited properties used in this project:
+        // Inherited properties used in this project:
+        // guid Id
          //   string Email
          //   string PhoneNumber
 
