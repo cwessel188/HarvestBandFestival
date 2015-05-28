@@ -7,7 +7,7 @@ Several weeks ago I was approached by the organizer for the Harvest Band Festiva
 This website was built with ASP.NET MVC 5 templates. The login system implements the Microsoft identity package, and the database was created using Entity Framework code-first database creation.
 
 My website at the current time contains 3 different areas, accessible by users with different Claims: 
-  Unauthorized users van view the static front end fo the website, containing contest rules and information about each participating school. 
+  Unauthorized users can view the static front end of the website, containing contest rules and information about each participating school. 
   Users logged in as a band director gain access top their own band's page and have rights to edit and upload files. 
   Users logged in as contest staff can edit each band, as well as add and edit contest scores for each band. 
   Finally, and Admin user has rights to all of the above, plus access to the user list, and the capabilities to create users and edit each user's claims. 
